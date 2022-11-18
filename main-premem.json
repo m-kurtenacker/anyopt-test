@@ -125,8 +125,9 @@
         },
 
         {
-            "name": "branch",
-            "type": "branch"
+            "name": "br",
+            "type": "continuation",
+            "intrinsic": "branch"
         },
 
         {
@@ -222,7 +223,7 @@
             "name": "main",
             "type": "continuation",
             "app": {
-                "target": "branch",
+                "target": "br",
                 "args": ["cond_0", "return1", "return2"]
             }
         }

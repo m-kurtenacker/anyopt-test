@@ -1,4 +1,67 @@
+enum Test {
+  a(i64),
+  b(i32, i32)
+}
+
+fn test (a : i32) -> i32 {
+    if a < 3 { a + 30 } else { a + 40 }
+}
+
+fn test_2 (a : i32) -> i32 {
+    a * (sizeof[i16]() as i32)
+}
+
+fn test_tuple (a : (i32, i64)) -> i32 {
+    a.0 * (a.1 as i32)
+}
+
+fn test_option (t : Test) -> i32 {
+    match t {
+        Test::a(i) => {
+            let x = (i >> 32) as i32;
+            let y = (i & (((-1 as u32) as u64) as i64)) as i32;
+            x * y
+        },
+        Test::b(x, y) => x * y
+    }
+}
+
+fn test_mathop (a : f32) -> i32 {
+    math_builtins::ceil(math_builtins::fabs(a)) as i32
+}
+
 #[export]
 fn main(_argc : i32, argv : &[&[u8]]) -> i32 {
-    (argv(1)(0) as i32) - 48
+    let s = (argv(1)(0) as i32) - 48;
+    let t = (argv(1)(1) as i32) - 48;
+    let x = select(argv(1)(1) != 0, s * 10 + t, s);
+
+    let mut A : [i32 * 4];
+    for i in range(0, 4) {
+        A(i) = x;
+    };
+
+    let a = test(A(0) + A(1));
+    print_i32(a);
+    print_string("\n");
+
+    let b = test_2(A(0) + A(1));
+    print_i32(b);
+    print_string("\n");
+
+    let mut tuple = (A(0) + A(1), sizeof[i32]());
+    tuple.1 = sizeof[i16]();
+    let c = test_tuple(tuple);
+    print_i32(c);
+    print_string("\n");
+
+    let d = test_option(Test::b(A(0) + A(1), sizeof[i16]() as i32));
+    print_i32(d);
+    print_string("\n");
+
+    let e = test_mathop(x as f32 * -1.25);
+    print_i32(e);
+    print_string("\n");
+
+    x + a
 }
