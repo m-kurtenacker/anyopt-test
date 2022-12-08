@@ -1,0 +1,10 @@
+#[export]
+static global_x : i32;
+
+#[export]
+fn main () -> i32 {
+    print_i32(global_x);
+    print_string("\n");
+
+    global_x
+}

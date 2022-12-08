@@ -1,3 +1,4 @@
 *.ll
 *.thorin.json
 *.out
+/build/

@@ -1,0 +1,2 @@
+#[export]
+static global_x : i32 = 7;
