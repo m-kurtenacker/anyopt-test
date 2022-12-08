@@ -1,0 +1,11 @@
+#[export]
+static global_x : i32;
+
+#[import(cc="C", name="printf")] fn print(_: &[u8], i32) -> ();
+
+#[export]
+fn main () -> i32 {
+    print("%d\n", global_x);
+
+    0
+}

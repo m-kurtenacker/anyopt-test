@@ -1,0 +1,231 @@
+{
+    "module": "test",
+    "type_table": [
+        {
+            "name": "mem_t",
+            "type": "mem"
+        },
+        {
+            "name": "i32_t",
+            "type": "prim",
+            "tag": "qs32",
+            "length": 1
+        },
+        {
+            "name": "u32_t",
+            "type": "prim",
+            "tag": "qu32",
+            "length": 1
+        },
+        {
+            "name": "u8_t",
+            "type": "prim",
+            "tag": "pu8",
+            "length": 1
+        },
+        {
+            "name": "u8_arr_t",
+            "type": "indef_array",
+            "args": ["u8_t"]
+        },
+        {
+            "name": "u8_p_t",
+            "type": "ptr",
+            "args": ["u8_arr_t"],
+            "length": 1
+        },
+        {
+            "name": "u8_p_arr_t",
+            "type": "indef_array",
+            "args": ["u8_p_t"]
+        },
+        {
+            "name": "u8_pp_t",
+            "type": "ptr",
+            "args": ["u8_p_arr_t"],
+            "length": 1
+        },
+        {
+            "name": "main_ret_t",
+            "type": "function",
+            "args": ["mem_t", "i32_t"]
+        },
+        {
+            "name": "case_t",
+            "type": "function",
+            "args": ["mem_t"]
+        },
+        {
+            "name": "main_t",
+            "type": "function",
+            "args": ["mem_t", "i32_t", "u8_pp_t", "main_ret_t"]
+        },
+        {
+            "name": "bool_t",
+            "type": "prim",
+            "tag": "bool",
+            "length": 1
+        }
+    ],
+    "defs": [
+        {
+            "name": "const_7",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 7
+        },
+        {
+            "name": "const_6",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 6
+        },
+        {
+            "name": "const_50",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 50
+        },
+        {
+            "name": "const_48",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 48
+        },
+        {
+            "name": "const_0",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 0
+        },
+        {
+            "name": "const_1",
+            "type": "const",
+            "const_type": "i32_t",
+            "value": 1
+        },
+        {
+            "name": "const_u_0",
+            "type": "const",
+            "const_type": "u32_t",
+            "value": 0
+        },
+        {
+            "name": "const_u_1",
+            "type": "const",
+            "const_type": "u32_t",
+            "value": 1
+        },
+
+        {
+            "name": "arith_0",
+            "type": "arithop",
+            "op": "mul",
+            "args": ["const_7", "const_6"]
+        },
+
+        {
+            "name": "branch",
+            "intrinsic": "branch",
+            "type": "continuation"
+        },
+
+        {
+            "name": "main",
+            "type": "continuation",
+            "fn_type": "main_t",
+            "arg_names": ["main_0.mem", "main_0.argc", "main_0.argv", "main_0.ret"],
+            "external": "main"
+        },
+
+        {
+            "name": "first_param_ptr",
+            "type": "lea",
+            "args": ["main_0.argv", "const_1"]
+        },
+        {
+            "name": "first_param_load",
+            "type": "load",
+            "args": ["main_0.mem", "first_param_ptr"]
+        },
+        {
+            "name": "lea_1_mem",
+            "type": "extract",
+            "args": ["first_param_load", "const_u_0"]
+        },
+        {
+            "name": "first_param",
+            "type": "extract",
+            "args": ["first_param_load", "const_u_1"]
+        },
+        {
+            "name": "first_char_ptr",
+            "type": "lea",
+            "args": ["first_param", "const_0"]
+        },
+        {
+            "name": "first_char_load",
+            "type": "load",
+            "args": ["lea_1_mem", "first_char_ptr"]
+        },
+        {
+            "name": "lea_2_mem",
+            "type": "extract",
+            "args": ["first_char_load", "const_u_0"]
+        },
+        {
+            "name": "first_char",
+            "type": "extract",
+            "args": ["first_char_load", "const_u_1"]
+        },
+        {
+            "name": "first_char_int",
+            "type": "cast",
+            "source": "first_char",
+            "target_type": "i32_t"
+        },
+        {
+            "name": "first_number",
+            "type": "arithop",
+            "op": "sub",
+            "args": ["first_char_int", "const_48"]
+        },
+
+
+        {
+            "name": "cond_0",
+            "type": "cmp",
+            "op": "ge",
+            "args": ["first_number", "const_6"]
+        },
+
+        {
+            "name": "return1",
+            "type": "continuation",
+            "fn_type": "case_t",
+            "arg_names": ["return1.0"],
+            "app": {
+                "target": "main_0.ret",
+                "args": ["return1.0", "first_number"]
+            }
+        },
+        {
+            "name": "return2",
+            "type": "continuation",
+            "fn_type": "case_t",
+            "arg_names": ["return2.0"],
+            "app": {
+                "target": "main_0.ret",
+                "args": ["return2.0", "arith_0"]
+            }
+        },
+        {
+            "name": "main",
+            "type": "continuation",
+            "app": {
+                "target": "branch",
+                "args": ["lea_2_mem", "cond_0", "return1", "return2"]
+            }
+        }
+    ]
+}

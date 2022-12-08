@@ -1,0 +1,75 @@
+{
+    "module": "test",
+    "type_table": [
+        {
+            "name": "mem_t",
+            "type": "mem"
+        },
+        {
+            "name": "main_t",
+            "type": "function",
+            "args": []
+        },
+        {
+            "name": "test1_t",
+            "type": "function",
+            "args": ["mem_t"]
+        },
+        {
+            "name": "test2_t",
+            "type": "function",
+            "args": ["main_t"]
+        },
+        {
+            "name": "tuple_test",
+            "type": "tuple",
+            "args": ["mem_t", "test2_t"]
+        },
+        {
+            "name": "test3_t",
+            "type": "function",
+            "args": ["mem_t", "main_t", "tuple_test"]
+        },
+        {
+            "name": "pf32_t",
+            "type": "prim",
+            "tag": "pf32",
+            "length": 1
+        },
+        {
+            "name": "qu32v4_t",
+            "type": "prim",
+            "tag": "qu32",
+            "length": 4
+        },
+
+        {
+            "name": "qs8_t",
+            "type": "prim",
+            "tag": "qs8",
+            "length": 1
+        },
+        {
+            "name": "qs16_t",
+            "type": "prim",
+            "tag": "qs16",
+            "length": 1
+        },
+        {
+            "name": "struct_A_t",
+            "type": "struct",
+            "struct_name": "A",
+            "args": ["qs8_t", "qs16_t"],
+            "arg_names": ["a", "b"]
+        },
+        {
+            "name": "variant_A_t",
+            "type": "variant",
+            "variant_name": "B",
+            "args": ["qs8_t", "qs16_t"],
+            "arg_names": ["a", "b"]
+        }
+
+    ],
+    "defs": [ ]
+}

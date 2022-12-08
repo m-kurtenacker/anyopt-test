@@ -1,0 +1,32 @@
+#[export]
+static x : i32;
+
+#[export]
+static x = 3.4;
+
+#[export]
+static x = 32;
+
+#[export]
+fn test() -> i32 {
+    x
+}
+
+//#[export]
+//static x : f64;
+
+#[export]
+static x : i32;
+
+//#[export]
+//fn test2() -> f32 {
+//    x
+//}
+
+/*fn test4() -> i32 {
+    test3()
+}
+
+fn test3() -> i32 {
+    test4()
+}*/
