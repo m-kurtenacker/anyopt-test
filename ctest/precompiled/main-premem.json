@@ -47,17 +47,17 @@
         },
         {
             "name": "main_ret_t",
-            "type": "fn",
+            "type": "function",
             "args": ["mem_t", "i32_t"]
         },
         {
             "name": "case_t",
-            "type": "fn",
+            "type": "function",
             "args": []
         },
         {
             "name": "main_t",
-            "type": "fn",
+            "type": "function",
             "args": ["mem_t", "i32_t", "u8_pp_t", "main_ret_t"]
         },
         {
@@ -135,7 +135,7 @@
             "type": "continuation",
             "fn_type": "main_t",
             "arg_names": ["main_0.mem", "main_0.argc", "main_0.argv", "main_0.ret"],
-            "external": true
+            "external": "main"
         },
 
         {
